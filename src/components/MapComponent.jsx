@@ -17,6 +17,25 @@ const MapFlyTo = ({ targetLocation }) => {
     return null;
 };
 
+const getSatelliteName = (code) => {
+    if (!code) return 'Unknown';
+    const c = String(code).trim().toUpperCase();
+    
+    switch (c) {
+        case 'N':
+            return 'NOAA-20 (VIIRS)';
+        case 'NPP':
+        case '1':
+            return 'Suomi NPP (VIIRS)';
+        case 'T':
+            return 'Terra (MODIS)';
+        case 'A':
+            return 'Aqua (MODIS)';
+        default:
+            return code; // Jika ada kode lain, tampilkan apa adanya
+    }
+};
+
 const MapComponent = () => {
     const [hotspots, setHotspots] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -125,7 +144,13 @@ const MapComponent = () => {
                     <MapFlyTo targetLocation={searchTarget} />
                     
                     <LayersControl position="topright">
-                        <LayersControl.BaseLayer checked name="Dark Mode">
+                        <LayersControl.BaseLayer checked name="Street / Standard">
+                            <TileLayer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            />
+                        </LayersControl.BaseLayer>
+                        <LayersControl.BaseLayer name="Dark Mode">
                             <TileLayer
                                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
@@ -138,14 +163,6 @@ const MapComponent = () => {
                                 attribution='Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
                             />
                         </LayersControl.BaseLayer>
-
-                        <LayersControl.BaseLayer name="Street / Standard">
-                            <TileLayer
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                            />
-                        </LayersControl.BaseLayer>
-
                         <LayersControl.BaseLayer name="Clean Light">
                             <TileLayer
                                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -235,7 +252,7 @@ const MapComponent = () => {
                                                 <div>
                                                     <div className="text-[10px] text-slate-500 font-mont font-medium uppercase tracking-wider">Satellite</div>
                                                     <div className="font-mont font-semibold text-slate-700">
-                                                        {spot.satellite || 'Unknown'} 
+                                                        {getSatelliteName(spot.satellite)} 
                                                         {/* Opsional jika ada kolom instrument: {spot.instrument ? `(${spot.instrument})` : ''} */}
                                                     </div>
                                                 </div> 

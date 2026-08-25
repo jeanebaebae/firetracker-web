@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup, useMap, LayersControl, ZoomControl } from 'react-leaflet';
 import axios from 'axios';
 import SearchBar from './SearchBar';
+import logoImg from '../assets/logo.webp';
 
 const MapFlyTo = ({ targetLocation }) => {
     const map = useMap();
@@ -120,10 +121,17 @@ const MapComponent = () => {
 
     return (
         <div className="relative w-full h-screen bg-slate-50">
-            <div className="absolute top-6 left-1/2 -translate-x-1/2 z-[1000]">
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
                 <SearchBar onLocationFound={setSearchTarget} />
             </div>
-
+            <div className="absolute top-4 left-4 z-[1000] opacity-70">
+              <div className="flex items-center bg-white backdrop-blur-md px-3 py-1.5 rounded-xl">
+                <img
+                  src={logoImg}
+                  className="w-auto h-7 object-contain"
+                />
+              </div>
+            </div>
             <div className="w-full h-full relative z-0">
                 {isLoading && (
                     <div className="absolute inset-0 z-[2000] bg-white opacity-50 backdrop-blur-sm flex flex-col items-center justify-center transition-all duration-300">
@@ -211,11 +219,11 @@ const MapComponent = () => {
                             >
                                 <Popup className="custom-popup">
                                     <div className="w-76 p-2 bg-transparent font-sans">
-                                        <div className="flex flex-col items-start gap-2 pb-2.5 mb-2 border-b border-slate-200/60">
+                                        <div className="flex flex-col items-start gap-2 pb-2.5 mb-2">
                                             <span className="font-gothic text-lg tracking-wider text-red-600 font-bold whitespace-nowrap">
                                                 HOTSPOT DETECTED
                                             </span>
-                                            <span className={`inline-flex items-center gap-1 text-[11px] font-mont font-semibold px-2 py-0.5 rounded-full shrink-0 ${confBadge.bg}`}>
+                                            <span className={`inline-flex items-center text-[11px] font-mont font-semibold px-2 rounded-full shrink-0 ${confBadge.bg}`}>
                                                 {confBadge.label}
                                             </span>
                                         </div>

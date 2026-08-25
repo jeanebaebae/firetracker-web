@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, CircleMarker, Popup, useMap, LayersControl, Zo
 import axios from 'axios';
 import SearchBar from './SearchBar';
 import logoImg from '../assets/logo.webp';
+import loadingImg from '../assets/loading.webp';
 
 const MapFlyTo = ({ targetLocation }) => {
     const map = useMap();
@@ -124,8 +125,8 @@ const MapComponent = () => {
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000]">
                 <SearchBar onLocationFound={setSearchTarget} />
             </div>
-            <div className="absolute top-4 left-4 z-[1000] opacity-70">
-              <div className="flex items-center bg-white backdrop-blur-md px-3 py-1.5 rounded-xl">
+            <div className="absolute top-4 left-4 z-[1000]">
+              <div className="flex items-center bg-white/70 backdrop-blur-md px-3 py-1.5 rounded-xl">
                 <img
                   src={logoImg}
                   className="w-auto h-7 object-contain"
@@ -135,10 +136,14 @@ const MapComponent = () => {
             <div className="w-full h-full relative z-0">
                 {isLoading && (
                     <div className="absolute inset-0 z-[2000] bg-white opacity-50 backdrop-blur-sm flex flex-col items-center justify-center transition-all duration-300">
-                        <div className="w-12 h-12 mb-4 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin"></div>
+                        {/* <div className="w-12 h-12 mb-4 border-4 border-slate-200 border-t-red-600 rounded-full animate-spin"></div>
                         <span className="font-mont font-bold text-slate-800 text-xl tracking-widest uppercase">
                             Loading...
-                        </span>
+                        </span> */}
+                        <img
+                          src={loadingImg}
+                          className="w-48 h-48 object-contain"
+                        />
                     </div>
                 )}
 

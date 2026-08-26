@@ -5,6 +5,7 @@ import axios from 'axios';
 const SearchBar = ({ onLocationFound }) => {
     const [query, setQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
+    
 
     const onSubmitSearch = async (e) => {
         e.preventDefault();
@@ -43,7 +44,8 @@ const SearchBar = ({ onLocationFound }) => {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search places..."
-                className="w-64 sm:w-80 py-2 pl-4 pr-10 bg-white/70 hover:bg-white border border-transparent focus:bg-white rounded-xl text-sm font-mont text-slate-800 placeholder:text-slate-500 focus:outline-none transition-all duration-300"
+                className="w-64 sm:w-80 py-2 pl-4 pr-10 bg-white/70 hover:bg-white border border-transparent focus:bg-white rounded-xl text-sm font-mont 
+              text-slate-800 placeholder:text-slate-500 focus:outline-none transition-all duration-300"
             />
             
             <button 
